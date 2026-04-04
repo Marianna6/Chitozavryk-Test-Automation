@@ -23,4 +23,8 @@
     <Folder Include="Pages\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Chitozavryk.Api.Tests\Chitozavryk.Api.Tests.csproj" />
+  </ItemGroup>
+
 </Project>

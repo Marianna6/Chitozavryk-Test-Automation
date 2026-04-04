@@ -1,54 +1,48 @@
-﻿using Chitozavryk.Api.Tests.Models;
+﻿using Chitozavryk.Api.Data.Models;
 using RestSharp;
 
-namespace Chitozavryk.Api.Tests.Services
+namespace Chitozavryk.Api.Data.Services
 {
 	public class BookService
 	{
 
 		private readonly RestClient _client;
 
-		public BookService()
+		public BookService(RestClient client)
 		{
-			_client = new RestClient("https://petstore.swagger.io/v2");
+			_client = client;
 		}
 
-		public async Task<RestResponse<BookResponse>> CreateBook(BookRequest book, string token)
+		public async Task<RestResponse<BookResponse>> CreateBook(BookRequest book, string token = null)
 		{
-
 			var request = new RestRequest("pet", Method.Post);
-
-			request.AddHeader("Authorization", $"Bearer {token}");
-			request.AddHeader("Content-Type", "application/json");
-
 			request.AddJsonBody(book);
 
+			if (token != null)
+			{
+				request.AddHeader("api_key", token);
+			}
+
 			return await _client.ExecuteAsync<BookResponse>(request);
 		}
 
-		public async Task<RestResponse<BookResponse>> GetBookById(long bookId, string token)
+		public async Task<RestResponse<BookResponse>> GetBookById(long bookId)
 		{
-
 			var request = new RestRequest($"pet/{bookId}", Method.Get);
 
-
-			request.AddHeader("Authorization", $"Bearer {token}");
-
 			return await _client.ExecuteAsync<BookResponse>(request);
 		}
 
-		public async Task<RestResponse> DeleteBook(long bookId, string token)
+		public async Task<RestResponse> DeleteBook(long bookId)
 		{
 			var request = new RestRequest($"pet/{bookId}", Method.Delete);
-			request.AddHeader("Authorization", $"Bearer {token}");
+
 			return await _client.ExecuteAsync(request);
 		}
 
-		public async Task<RestResponse<BookResponse>> UpdateBook(BookResponse book, string token)
+		public async Task<RestResponse<BookResponse>> UpdateBook(BookResponse book)
 		{
-
 			var request = new RestRequest($"pet", Method.Put);
-			request.AddHeader("Authorization", $"Bearer {token}");
 
 			request.AddJsonBody(book);
 

@@ -1,8 +1,10 @@
 ﻿using Chitozavryk.Api.Data.Services;
+
 using Microsoft.Extensions.Configuration;
+
 using RestSharp;
 
-namespace Chitozavryk.Api.Data.Fixtures
+namespace Chitozavryk.Api.Tests.Fixtures
 {
 	public class ApiFixture
 	{

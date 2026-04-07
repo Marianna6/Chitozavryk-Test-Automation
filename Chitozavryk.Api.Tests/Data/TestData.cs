@@ -9,5 +9,11 @@ namespace Chitozavryk.Api.Tests.Data
 			Title = "Test Book",
 			Author = "Test Author"
 		};
+
+		public static IEnumerable<object[]> GetBookData => new List<object[]>
+		{
+			new object[] { ValidBook },
+			new object[] { new BookRequest{Title = "Another Book", Author = "Another Author"}}
+		};
 	}
 }

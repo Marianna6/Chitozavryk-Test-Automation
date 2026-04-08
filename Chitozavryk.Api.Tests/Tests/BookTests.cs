@@ -56,11 +56,12 @@ namespace Chitozavryk.Api.Tests.Tests
 			response.ContentType.ShouldContain("application/json");
 		}
 
-		[Fact]
-		public async Task CreateAndDeleteBook_ShouldCheckFullLifecycle()
+		[Theory]
+		[MemberData(nameof(TestData.GetBookData), MemberType = typeof(TestData))]
+		public async Task CreateAndDeleteBook_ShouldCheckFullLifecycle(BookRequest bookToCreate)
 		{
 
-			var creationResult = await _bookService.CreateBook(TestData.ValidBook);
+			var creationResult = await _bookService.CreateBook(bookToCreate);
 
 			creationResult.ShouldSatisfyAllConditions(
 		    () => creationResult.StatusCode.ShouldBe(HttpStatusCode.OK),
@@ -80,14 +81,14 @@ namespace Chitozavryk.Api.Tests.Tests
 			responseGet.StatusCode.ShouldBe(HttpStatusCode.NotFound);
 		}
 
-		[Fact]
-		public async Task DeleteNonExistentBook_ShouldReturnNotFound()
+		[Theory]
+		[InlineData(0)]
+		[InlineData(-1)]
+		[InlineData(long.MaxValue)]
+		public async Task DeleteNonExistentBook_ShouldReturnNotFound(long nonExistentId)
 		{
 
-			long nonExistentId = new Random().Next(1000000, 9999999);
-
 			var responseDelete = await _bookService.DeleteBook(nonExistentId);
-
 			responseDelete.StatusCode.ShouldBe(HttpStatusCode.NotFound);
 		}
 

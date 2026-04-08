@@ -13,12 +13,13 @@ namespace Chitozavryk.Api.Tests.Data
 		public static IEnumerable<object[]> GetBookData => new List<object[]>
 		{
 			new object[] { ValidBook },
-			new object[] { new BookRequest{Title = "Another Book", Author = "Another Author"}}
+			new object[] { new BookRequest { Title = new string('s', 100), Author = "Long Title Author" } },
+			new object[] { new BookRequest { Title = "X", Author = "Short Title Author" } }
 		};
 
 		public static IEnumerable<object[]> UpdateBookData => new List<object[]>
 		{
-			new object[] { "New Title", "available" },
+			new object[] { "New Title", "sold" },
 			new object[] { "Only Title Changed", "available" }
 		};
 	}

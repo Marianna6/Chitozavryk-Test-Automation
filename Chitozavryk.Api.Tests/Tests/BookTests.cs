@@ -91,15 +91,12 @@ namespace Chitozavryk.Api.Tests.Tests
 			responseDelete.StatusCode.ShouldBe(HttpStatusCode.NotFound);
 		}
 
-		[Fact]
-		public async Task UpdateBook_ShouldVerifyFullUpdate()
+		[Theory]
+		[MemberData(nameof(TestData.UpdateBookData), MemberType = typeof(TestData))]
+		public async Task UpdateBook_ShouldVerifyChanges(string newTitle, string newStatus)
 		{
-
 			var responsePost = await _bookService.CreateBook(TestData.ValidBook);
 			var bookToUpdate = responsePost.Data;
-
-			string newTitle = "New Title";
-			string newStatus = "sold";
 
 			bookToUpdate.Title = newTitle;
 			bookToUpdate.Status = newStatus;
@@ -107,34 +104,11 @@ namespace Chitozavryk.Api.Tests.Tests
 			var responsePut = await _bookService.UpdateBook(bookToUpdate);
 
 			responsePut.ShouldSatisfyAllConditions(
-		    () => responsePut.StatusCode.ShouldBe(HttpStatusCode.OK),
-		    () => responsePut.ContentType.ShouldContain("application/json"),
-		    () => responsePut.Data.Title.ShouldBe(newTitle),
-		    () => responsePut.Data.Status.ShouldBe(newStatus)
-	        );
-
-		}
-
-		[Fact]
-		public async Task UpdateBookTitleOnly_ShouldVerifyPartialUpdate()
-		{
-
-			var responsePatch = await _bookService.CreateBook(TestData.ValidBook);
-
-			var bookToUpdate = responsePatch.Data;
-
-			string newTitle = "New Title";
-
-			bookToUpdate.Title = newTitle;
-
-			var responsePut = await _bookService.UpdateBook(bookToUpdate);
-
-			responsePut.ShouldSatisfyAllConditions(
-            () => responsePut.StatusCode.ShouldBe(HttpStatusCode.OK),
-            () => responsePut.ContentType.ShouldContain("application/json"),
-            () => responsePut.Data.Title.ShouldBe(newTitle)
-	        );
-
+			() => responsePut.StatusCode.ShouldBe(HttpStatusCode.OK),
+			() => responsePut.ContentType.ShouldContain("application/json"),
+			() => responsePut.Data.Title.ShouldBe(newTitle),
+			() => responsePut.Data.Status.ShouldBe(newStatus)
+			);
 		}
 	}
 }

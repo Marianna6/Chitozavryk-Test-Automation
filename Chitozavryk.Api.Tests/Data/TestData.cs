@@ -15,5 +15,11 @@ namespace Chitozavryk.Api.Tests.Data
 			new object[] { ValidBook },
 			new object[] { new BookRequest{Title = "Another Book", Author = "Another Author"}}
 		};
+
+		public static IEnumerable<object[]> UpdateBookData => new List<object[]>
+		{
+			new object[] { "New Title", "available" },
+			new object[] { "Only Title Changed", "available" }
+		};
 	}
 }

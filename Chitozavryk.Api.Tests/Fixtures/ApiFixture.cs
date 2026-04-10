@@ -31,7 +31,6 @@ namespace Chitozavryk.Api.Tests.Fixtures
 		}
 
 		public string AdminToken => Configuration["AdminToken"] ?? "admin_token";
-		public string InvalidToken => Configuration["InvalidToken"] ?? "invalid_token";
 
 	}
 }

@@ -12,16 +12,14 @@ namespace Chitozavryk.Api.Tests.Tests
 	public class BookTests : IClassFixture<ApiFixture>
 	{
 		private readonly BookService _bookService;
-		private readonly string _invalidToken;
 
 		public BookTests(ApiFixture fixture)
 		{
 			_bookService = fixture.BookService;
-			_invalidToken = fixture.InvalidToken;
 		}
 
 		[Theory]
-		[MemberData(nameof(TestData.GetBookData), MemberType = typeof(TestData))]
+		[MemberData(nameof(BookTestData.GetBookData), MemberType = typeof(BookTestData))]
 		public async Task CreateAndVerifyBook_ShouldWorkCorrectly(BookRequest bookToCreate)
 		{
 
@@ -42,11 +40,12 @@ namespace Chitozavryk.Api.Tests.Tests
 			);
 		}
 
-		[Fact]
-		public async Task CreateBookAsGuest_ShouldReturnForbidden()
+		[Theory]
+		[MemberData(nameof(BookTestData.GetGuestAccessData), MemberType = typeof(BookTestData))]
+		public async Task CreateBookAsGuest_ShouldReturnForbidden(BookRequest book, string token)
 		{
 
-			var response = await _bookService.CreateBook(TestData.ValidBook, _invalidToken);
+			var response = await _bookService.CreateBook(book, token);
 
 			// NOTE: In a production environment, this should return HttpStatusCode.Forbidden (403).
 			// However, since PetStore API does not enforce token validation, it returns OK (200).
@@ -57,7 +56,7 @@ namespace Chitozavryk.Api.Tests.Tests
 		}
 
 		[Theory]
-		[MemberData(nameof(TestData.GetBookData), MemberType = typeof(TestData))]
+		[MemberData(nameof(BookTestData.GetBookData), MemberType = typeof(BookTestData))]
 		public async Task CreateAndDeleteBook_ShouldCheckFullLifecycle(BookRequest bookToCreate)
 		{
 
@@ -82,9 +81,7 @@ namespace Chitozavryk.Api.Tests.Tests
 		}
 
 		[Theory]
-		[InlineData(0)]
-		[InlineData(-1)]
-		[InlineData(long.MaxValue)]
+		[MemberData(nameof(BookTestData.GetInvalidIdData), MemberType = typeof(BookTestData))]
 		public async Task DeleteNonExistentBook_ShouldReturnNotFound(long nonExistentId)
 		{
 
@@ -93,10 +90,10 @@ namespace Chitozavryk.Api.Tests.Tests
 		}
 
 		[Theory]
-		[MemberData(nameof(TestData.UpdateBookData), MemberType = typeof(TestData))]
-		public async Task UpdateBook_ShouldVerifyChanges(string newTitle, string newStatus)
+		[MemberData(nameof(BookTestData.GetUpdateBookData), MemberType = typeof(BookTestData))]
+		public async Task UpdateBook_ShouldVerifyChanges(BookRequest initialBook, string newTitle, string newStatus)
 		{
-			var responsePost = await _bookService.CreateBook(TestData.ValidBook);
+			var responsePost = await _bookService.CreateBook(initialBook);
 			var bookToUpdate = responsePost.Data;
 
 			bookToUpdate.Title = newTitle;

@@ -22,7 +22,7 @@ namespace Chitozavryk.Ui.Tests.Pages
 
 		public async Task OpenAsync()
 		{
-			await _page.GotoAsync(_baseUrl);
+			await _page.GotoAsync(_baseUrl, new PageGotoOptions { Timeout = 60000 });
 		}
 
 		public async Task AcceptCookiesIfVisibleAsync()

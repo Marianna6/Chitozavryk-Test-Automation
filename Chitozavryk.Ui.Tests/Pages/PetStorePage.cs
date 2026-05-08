@@ -7,12 +7,17 @@ namespace Chitozavryk.Ui.Tests.Pages
 	{
 		public PetStorePage(IPage page) : base(page) { }
 
-		private ILocator GetPetByIdSection => _page.GetByRole(AriaRole.Button, new() { Name = PetTestData.SectionGetById });
+		public PostPetComponent PostPet => new(_page.Locator("#operations-pet-addPet"));
 
-		public async Task ClickExpandSectionAsync()
-		{
-			await GetPetByIdSection.ClickAsync();
-		}
+		public GetPetComponent GetPet => new(_page.Locator("#operations-pet-getPetById"));
+
+		public PutPetComponent PutPet => new(_page.Locator("#operations-pet-updatePet"));
+
+		public DeletePetComponent DeletePet => new(_page.Locator("#operations-pet-deletePet"));
+
+		private ILocator ResponseBlock => _page.Locator(".responses-inner");
+
+		public async Task<string> GetActualResponseAsync() => await ResponseBlock.InnerTextAsync();
 
 	}
 }

@@ -5,11 +5,9 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chitozavryk.Api.Tests", "Chitozavryk.Api.Tests\Chitozavryk.Api.Tests.csproj", "{9EBD3E00-1C96-487E-A18B-B70BDA86393E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chitozavryk.Ui.Tests", "Chitozavryk.Ui.Tests\Chitozavryk.Ui.Tests.csproj", "{28A28992-D0AC-4725-B144-70A36C791A9E}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
-		.runsettings = .runsettings
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -34,18 +32,6 @@ Global
 		{9EBD3E00-1C96-487E-A18B-B70BDA86393E}.Release|x64.Build.0 = Release|Any CPU
 		{9EBD3E00-1C96-487E-A18B-B70BDA86393E}.Release|x86.ActiveCfg = Release|Any CPU
 		{9EBD3E00-1C96-487E-A18B-B70BDA86393E}.Release|x86.Build.0 = Release|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Debug|x64.Build.0 = Debug|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Debug|x86.Build.0 = Debug|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Release|x64.ActiveCfg = Release|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Release|x64.Build.0 = Release|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Release|x86.ActiveCfg = Release|Any CPU
-		{28A28992-D0AC-4725-B144-70A36C791A9E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

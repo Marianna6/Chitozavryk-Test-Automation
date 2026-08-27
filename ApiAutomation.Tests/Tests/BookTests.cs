@@ -1,13 +1,12 @@
-﻿using Chitozavryk.Api.Data.Models;
-using Chitozavryk.Api.Data.Services;
-using Chitozavryk.Api.Tests.Data;
-using Chitozavryk.Api.Tests.Fixtures;
-
-using Shouldly;
+﻿using Shouldly;
 
 using System.Net;
+using ApiAutomation.Tests.Data;
+using ApiAutomation.Tests.Fixture;
+using ApiAutomation.Tests.Models;
+using ApiAutomation.Tests.Services;
 
-namespace Chitozavryk.Api.Tests.Tests
+namespace ApiAutomation.Tests.Tests
 {
 	public class BookTests : IClassFixture<ApiFixture>
 	{
@@ -26,13 +25,16 @@ namespace Chitozavryk.Api.Tests.Tests
 			var creationResponse = await _bookService.CreateBook(bookToCreate);
 			creationResponse.StatusCode.ShouldBe(HttpStatusCode.OK);
 
+			creationResponse.Data.ShouldNotBeNull();
 			long id = creationResponse.Data.Id;
 
 			var getResponse = await _bookService.GetBookById(id);
 
 			getResponse.ShouldSatisfyAllConditions(
 				() => getResponse.StatusCode.ShouldBe(HttpStatusCode.OK),
+				() => getResponse.ContentType.ShouldNotBeNull(),
 				() => getResponse.ContentType.ShouldContain("application/json"),
+				() => getResponse.Data.ShouldNotBeNull(),
 				() => getResponse.Data.Id.ShouldBe(id),
 				() => getResponse.Data.Title.ShouldBe(bookToCreate.Title)
 			// Author is [JsonIgnore] (not supported by PetStore API),
@@ -52,6 +54,7 @@ namespace Chitozavryk.Api.Tests.Tests
 			// This test is implemented for demonstration purposes to show how to emulate and handle unauthorized access scenarios.
 			// OK is asserted to keep the test passing while documenting the test environment behavior.
 			response.StatusCode.ShouldBe(HttpStatusCode.OK);
+			response.ContentType.ShouldNotBeNull();
 			response.ContentType.ShouldContain("application/json");
 		}
 
@@ -64,15 +67,18 @@ namespace Chitozavryk.Api.Tests.Tests
 
 			creationResult.ShouldSatisfyAllConditions(
 		    () => creationResult.StatusCode.ShouldBe(HttpStatusCode.OK),
+		    () => creationResult.ContentType.ShouldNotBeNull(),
 		    () => creationResult.ContentType.ShouldContain("application/json")
 	        );
 
+			creationResult.Data.ShouldNotBeNull();
 			long id = creationResult.Data.Id;
 
 			var responseDelete = await _bookService.DeleteBook(id);
 
 			responseDelete.ShouldSatisfyAllConditions(
 		    () => responseDelete.StatusCode.ShouldBe(HttpStatusCode.OK),
+		    () => responseDelete.ContentType.ShouldNotBeNull(),
 		    () => responseDelete.ContentType.ShouldContain("application/json")
 	        );
 
@@ -94,6 +100,7 @@ namespace Chitozavryk.Api.Tests.Tests
 		public async Task UpdateBook_ShouldVerifyChanges(BookRequest initialBook, string newTitle, string newStatus)
 		{
 			var responsePost = await _bookService.CreateBook(initialBook);
+			responsePost.Data.ShouldNotBeNull();
 			var bookToUpdate = responsePost.Data;
 
 			bookToUpdate.Title = newTitle;
@@ -103,7 +110,9 @@ namespace Chitozavryk.Api.Tests.Tests
 
 			responsePut.ShouldSatisfyAllConditions(
 			() => responsePut.StatusCode.ShouldBe(HttpStatusCode.OK),
+			() => responsePut.ContentType.ShouldNotBeNull(),
 			() => responsePut.ContentType.ShouldContain("application/json"),
+			() => responsePut.Data.ShouldNotBeNull(),
 			() => responsePut.Data.Title.ShouldBe(newTitle),
 			() => responsePut.Data.Status.ShouldBe(newStatus)
 			);

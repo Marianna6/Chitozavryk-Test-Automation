@@ -1,6 +1,6 @@
-# Chitozavryk: API Automation Project
+# API Automation Project
 
-Automated API testing based on the Chitozavryk web app checklist, developed during my manual QA internship. Since the original backend was unavailable, Swagger Petstore was used as a functional environment.
+Automated API testing based on the web app checklist, developed during my manual QA internship. Since the original backend was unavailable, Swagger Petstore was used as a functional environment.
 
 **Project Structure:**
 * **`Services/`:** Encapsulates HTTP request logic (GET, POST, PUT, DELETE). Acts as a service layer to decouple the API client from the tests.

@@ -1,7 +1,7 @@
-﻿using Chitozavryk.Api.Data.Models;
+﻿using ApiAutomation.Tests.Models;
 using RestSharp;
 
-namespace Chitozavryk.Api.Data.Services
+namespace ApiAutomation.Tests.Services
 {
 	public class BookService
 	{

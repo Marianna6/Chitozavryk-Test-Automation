@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace Chitozavryk.Api.Data.Models
+namespace ApiAutomation.Tests.Models
 {
 
 	public class BookRequest

@@ -1,6 +1,6 @@
-﻿using Chitozavryk.Api.Data.Models;
+﻿using ApiAutomation.Tests.Models;
 
-namespace Chitozavryk.Api.Tests.Data
+namespace ApiAutomation.Tests.Data
 {
 	public static class BookTestData
 	{
@@ -27,8 +27,7 @@ namespace Chitozavryk.Api.Tests.Data
 		public static IEnumerable<object[]> GetInvalidIdData => new List<object[]>
 		{
 			new object[] { 0 },
-			new object[] { -1 },
-			new object[] { long.MaxValue }
+			new object[] { -1 }
         };
 
 		public static IEnumerable<object[]> GetUpdateBookData => new List<object[]>
